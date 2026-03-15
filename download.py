@@ -21,7 +21,7 @@ from PyQt6.QtWidgets import (
 from .api import fetchRevisions, fetchInfo, fetchModInfo
 from . import __meta__
 from . import var
-
+from pathlib import Path
 
 class ModInfoWorker(QObject):
     finished = pyqtSignal(object)
@@ -653,12 +653,9 @@ class stepDownload(QDialog):
                     self.parent(), len(mods_to_download)
                 )
                 progress_dialog.exec()
-                return
 
             # Save collection metadata for later installation
             try:
-                from pathlib import Path
-
                 base_path = Path(plugin_instance._organizer.basePath())
                 metadata_file = var.saveCollectionMetadata(base_path)
                 qDebug(f"[NXMColDL] Collection metadata saved to: {metadata_file}")
